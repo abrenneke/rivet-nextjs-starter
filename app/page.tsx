@@ -2,7 +2,7 @@ import * as Rivet from '@ironclad/rivet-node';
 
 export default async function Home() {
   const project = await Rivet.loadProjectFromFile(
-    '/Users/andy.brenneke/Desktop/Integration Test.rivet-project'
+    './ExampleProject.rivet-project'
   );
   const processor = Rivet.createProcessor(project, {
     graph: 'Graph 1',
@@ -13,5 +13,8 @@ export default async function Home() {
     openAiOrganization: process.env.OPENAI_ORGANIZATION_ID,
   });
   const outputs = await processor.run();
-  return <main>{JSON.stringify(outputs)}</main>;
+
+  const output = Rivet.coerceType(outputs.output, 'string');
+
+  return <main>{output}</main>;
 }

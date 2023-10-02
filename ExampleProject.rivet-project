@@ -1,0 +1,57 @@
+version: 4
+data:
+  attachedData:
+    trivet:
+      testSuites: []
+      version: 1
+  graphs:
+    BPLVMuuAV4T86WEWmGNxC:
+      metadata:
+        description: ""
+        id: BPLVMuuAV4T86WEWmGNxC
+        name: Graph 1
+      nodes:
+        '[4VXDJDNdvssmdTYDDSLq1]:graphInput "Graph Input"':
+          data:
+            dataType: string
+            id: input
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Chat" Zj4DTxtYsQ-QgU93T_2p_/prompt
+          visualData: 526/276/330/null
+        '[Zj4DTxtYsQ-QgU93T_2p_]:chat "Chat"':
+          data:
+            cache: false
+            enableFunctionUse: false
+            frequencyPenalty: 0
+            maxTokens: 1024
+            model: gpt-3.5-turbo
+            presencePenalty: 0
+            stop: ""
+            temperature: 0.5
+            top_p: 1
+            useAsGraphPartialOutput: true
+            useFrequencyPenaltyInput: false
+            useMaxTokensInput: false
+            useModelInput: false
+            usePresencePenaltyInput: false
+            useStop: false
+            useStopInput: false
+            useTemperatureInput: false
+            useTopP: false
+            useTopPInput: false
+            useUseTopPInput: false
+            useUserInput: false
+          outgoingConnections:
+            - response->"Graph Output" n1v4PbCxo_xOHCEE7YF2w/value
+          visualData: 994/241/230/1
+        '[n1v4PbCxo_xOHCEE7YF2w]:graphOutput "Graph Output"':
+          data:
+            dataType: string
+            id: output
+          visualData: 1339/267/330/2
+  metadata:
+    description: ""
+    id: uD18lu9R_nTmKQkstUfQl
+    title: Untitled Project
+  plugins: []
