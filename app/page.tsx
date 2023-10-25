@@ -87,21 +87,21 @@ const ChatArea: FC<{
   }, [streamingMessage, messages]);
 
   return (
-    <div className="md:flex">
-      <div className="p-8">
-        <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">
+    <div className="">
+      <div className="">
+        <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold p-8">
           Chatbot
         </div>
         <div
           ref={chatAreaRef}
-          className="block mt-1 text-lg leading-tight font-medium text-black break-words overflow-y-auto h-96"
+          className="block mt-1 text-lg leading-tight font-medium text-black break-words overflow-y-auto h-96 p-4"
         >
           {messages.map((message, index) => (
             <div
               key={index}
               className={`p-2 rounded-lg my-2 ${
                 message.type === 'user'
-                  ? 'bg-blue-200 ml-10'
+                  ? 'bg-blue-200 ml-10 text-right'
                   : 'bg-green-200 mr-10'
               }`}
             >

@@ -1,4 +1,5 @@
 import * as Rivet from '@ironclad/rivet-node';
+import { resolve } from 'node:path';
 
 export async function POST(request: Request) {
   const body = await request.json();
@@ -12,11 +13,10 @@ export async function POST(request: Request) {
     })
   );
 
-  console.dir({ chatMessages });
-
   const project = await Rivet.loadProjectFromFile(
-    './ExampleProject.rivet-project'
+    resolve('./app/ExampleProject.rivet-project')
   );
+
   const processor = Rivet.createProcessor(project, {
     graph: 'Chatbot',
     inputs: {
