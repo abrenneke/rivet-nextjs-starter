@@ -4,6 +4,14 @@ import { resolve } from 'node:path';
 export async function POST(request: Request) {
   const body = await request.json();
 
+  const openAiKey = request.headers.get('openai-api-key');
+
+  if (!openAiKey?.trim()) {
+    return new Response('Missing OpenAI API Key', {
+      status: 400,
+    });
+  }
+
   const chatMessages = body.messages.map(
     (message: any): Rivet.ChatMessage => ({
       type: message.type as 'user' | 'assistant',
@@ -14,6 +22,7 @@ export async function POST(request: Request) {
   );
 
   const project = await Rivet.loadProjectFromFile(
+    // Resolve is necessary so that Vercel includes this file in the deployment
     resolve('./app/ExampleProject.rivet-project')
   );
 
@@ -25,8 +34,7 @@ export async function POST(request: Request) {
         value: chatMessages,
       },
     },
-    openAiKey: process.env.OPENAI_API_KEY,
-    openAiOrganization: process.env.OPENAI_ORGANIZATION_ID,
+    openAiKey,
   });
 
   processor.run();

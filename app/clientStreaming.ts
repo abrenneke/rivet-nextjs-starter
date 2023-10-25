@@ -1,36 +1,4 @@
 import { EventSourceParserStream } from 'eventsource-parser/stream';
-import * as yaml from 'yaml';
-
-export async function* fetchTextStream(path: string, init?: RequestInit) {
-  const response = await fetch(path, {
-    method: 'POST',
-    ...init,
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: 'text/event-stream',
-      ...init?.headers,
-    },
-  });
-
-  const reader = response.body
-    ?.pipeThrough(new TextDecoderStream('utf-8'))
-    .pipeThrough(new EventSourceParserStream())
-    .getReader();
-
-  if (!reader) {
-    return;
-  }
-
-  while (true) {
-    const { done, value } = await reader.read();
-
-    if (done) {
-      break;
-    }
-
-    yield JSON.parse(value.data) as string;
-  }
-}
 
 export async function* fetchJSONEventStream<T = unknown>(
   path: string,
