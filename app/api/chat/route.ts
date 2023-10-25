@@ -4,12 +4,13 @@ import { resolve } from 'node:path';
 export async function POST(request: Request) {
   const body = await request.json();
 
-  // You could also get your API key from `process.env.OPENAI_API_KEY` if you
-  // prefer. This is just a demonstration of how to get it from the request
-  // headers to take the key from the client.
   const openAiKey = request.headers.get('openai-api-key');
 
-  if (!openAiKey?.trim()) {
+  // You may specifiy an OPENAI_API_KEY environment variable to use as the default key in
+  // your Vercel deployment environment variables (https://vercel.com/docs/environment-variables)
+  const apiKeyToUse = openAiKey || process.env.OPENAI_API_KEY;
+
+  if (!apiKeyToUse?.trim()) {
     return new Response('Missing OpenAI API Key', {
       status: 400,
     });
@@ -37,7 +38,7 @@ export async function POST(request: Request) {
         value: chatMessages,
       },
     },
-    openAiKey,
+    openAiKey: apiKeyToUse,
   });
 
   processor.run();

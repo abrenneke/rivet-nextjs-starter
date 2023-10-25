@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { fetchJSONEventStream } from '../clientStreaming';
+import { fetchJSONEventStream } from '../utils/clientStreaming';
 import { Message } from '../utils/Message';
 import { useRecoilValue } from 'recoil';
 import { openaiApiKeyState } from '../state/settings';
