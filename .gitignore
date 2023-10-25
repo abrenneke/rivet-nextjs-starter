@@ -34,5 +34,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-.yarn
-!.yarn/sdks
+.yarn/cache
+.yarn/unplugged
+.yarn/install-state.gz

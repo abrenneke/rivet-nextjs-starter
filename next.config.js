@@ -1,5 +1,8 @@
+const { withKumaUI } = require('@kuma-ui/next-plugin');
+
 /** @type {import('next').NextConfig} */
-module.exports = {
+module.exports = withKumaUI({
+  reactStrictMode: true,
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
@@ -14,4 +17,4 @@ module.exports = {
 
     return config;
   },
-};
+});

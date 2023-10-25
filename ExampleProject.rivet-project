@@ -5,21 +5,24 @@ data:
       testSuites: []
       version: 1
   graphs:
-    BPLVMuuAV4T86WEWmGNxC:
+    V7JdYFthKED7O_DGZFTXh:
       metadata:
         description: ""
-        id: BPLVMuuAV4T86WEWmGNxC
-        name: Graph 1
+        id: V7JdYFthKED7O_DGZFTXh
+        name: Chatbot
       nodes:
-        '[4VXDJDNdvssmdTYDDSLq1]:graphInput "Graph Input"':
+        '[4m6EM87H_2xNTCFE9yLII]:text "Text"':
+          data:
+            text: You are a simple chatbot.
+          outgoingConnections:
+            - output->"Context" Jzb44vQwFlGXkyJLgMO4c/default
+          visualData: -301.03502127819786/261.4225095710316/330/8//
+        '[B5064GRlom9O7qS9B4OWH]:graphOutput "Graph Output"':
           data:
             dataType: string
-            id: input
-            useDefaultValueInput: false
-          outgoingConnections:
-            - data->"Chat" Zj4DTxtYsQ-QgU93T_2p_/prompt
-          visualData: 526/276/330/null
-        '[Zj4DTxtYsQ-QgU93T_2p_]:chat "Chat"':
+            id: response
+          visualData: 1099.5381891189245/389.1571907767777/330/7//
+        '[E83_3mc1qMmr1qd8qraUf]:chat "Chat"':
           data:
             cache: false
             enableFunctionUse: false
@@ -43,13 +46,25 @@ data:
             useUseTopPInput: false
             useUserInput: false
           outgoingConnections:
-            - response->"Graph Output" n1v4PbCxo_xOHCEE7YF2w/value
-          visualData: 994/241/230/1
-        '[n1v4PbCxo_xOHCEE7YF2w]:graphOutput "Graph Output"':
+            - response->"Graph Output" B5064GRlom9O7qS9B4OWH/value
+          visualData: 710.3231016802395/353.0909278480965/230/6//
+        '[Jzb44vQwFlGXkyJLgMO4c]:context "Context"':
           data:
             dataType: string
-            id: output
-          visualData: 1339/267/330/2
+            defaultValue: ""
+            id: system_prompt
+            useDefaultValueInput: true
+          outgoingConnections:
+            - data->"Chat" E83_3mc1qMmr1qd8qraUf/systemPrompt
+          visualData: 154.30154819640305/244.89213906205268/330/5//
+        '[x4na7QDT8Kz0IXGSH48EW]:graphInput "Graph Input"':
+          data:
+            dataType: chat-message[]
+            id: messages
+            useDefaultValueInput: false
+          outgoingConnections:
+            - data->"Chat" E83_3mc1qMmr1qd8qraUf/prompt
+          visualData: 152.7987872410414/494.35045765209816/330/2//
   metadata:
     description: ""
     id: uD18lu9R_nTmKQkstUfQl
