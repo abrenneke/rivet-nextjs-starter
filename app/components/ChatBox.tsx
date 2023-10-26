@@ -11,7 +11,7 @@ export const ChatBox: FC<{
 }> = ({ messages, streamingMessage, working, onSubmit }) => {
   return (
     <div className="h-screen bg-gray-100 flex items-center justify-center">
-      <div className="w-full max-w-2xl mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+      <div className="w-full max-w-5xl mx-auto bg-white rounded-xl shadow-md overflow-hidden">
         <ChatArea messages={messages} streamingMessage={streamingMessage} />
         <ChatInput working={working} onSubmit={onSubmit} />
       </div>
