@@ -18,18 +18,6 @@ export function useSubmitMessage({
   const apiKey = useRecoilValue(openaiApiKeyState);
 
   const handleSubmit = async (message: string) => {
-    if (!apiKey.trim()) {
-      setMessages((messages) => [
-        ...messages,
-        {
-          type: 'error',
-          content: 'Please first enter your OpenAI API Key in the settings!',
-        },
-      ]);
-      setWorking(false);
-      return;
-    }
-
     setWorking(true);
 
     const userMessage = { type: 'user', content: message } as const;
@@ -48,19 +36,35 @@ export function useSubmitMessage({
       },
     });
 
-    let completeMessage = '';
-    for await (const chunk of chunks) {
-      completeMessage += chunk.data as string;
-      setStreamingMessage(completeMessage);
+    try {
+      let completeMessage = '';
+      for await (const chunk of chunks) {
+        completeMessage += chunk.data as string;
+        setStreamingMessage(completeMessage);
+      }
+
+      setMessages((messages) => [
+        ...messages,
+        { type: 'assistant', content: completeMessage },
+      ]);
+    } catch (err) {
+      let errorMessage: Message = {
+        type: 'error',
+        content: 'An unknown error occurred.',
+      };
+      if (err instanceof Error) {
+        if ((err.cause as any)?.code === 'MISSING_OPENAI_KEY') {
+          errorMessage.content =
+            'Please first enter your OpenAI API Key in the settings!';
+        } else {
+          errorMessage.content = err.message;
+        }
+      }
+      setMessages((messages) => [...messages, errorMessage]);
+    } finally {
+      setStreamingMessage(undefined);
+      setWorking(false);
     }
-
-    setMessages((messages) => [
-      ...messages,
-      { type: 'assistant', content: completeMessage },
-    ]);
-    setStreamingMessage(undefined);
-
-    setWorking(false);
   };
 
   return handleSubmit;

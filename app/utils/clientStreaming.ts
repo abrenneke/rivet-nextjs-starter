@@ -14,6 +14,19 @@ export async function* fetchJSONEventStream<T = unknown>(
     },
   });
 
+  if (response.status !== 200) {
+    let errorMessage = `${response.status}: ${response.statusText}`;
+    let cause: unknown = undefined;
+    try {
+      const { error, code } = await response.json();
+      errorMessage = error;
+      cause = { code };
+    } catch (err) {}
+    const err = new Error(errorMessage);
+    err.cause = cause;
+    throw err;
+  }
+
   const reader = response.body
     ?.pipeThrough(new TextDecoderStream('utf-8'))
     .pipeThrough(new EventSourceParserStream())

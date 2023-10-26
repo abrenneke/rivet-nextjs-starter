@@ -11,9 +11,15 @@ export async function POST(request: Request) {
   const apiKeyToUse = openAiKey || process.env.OPENAI_API_KEY;
 
   if (!apiKeyToUse?.trim()) {
-    return new Response('Missing OpenAI API Key', {
-      status: 400,
-    });
+    return Response.json(
+      {
+        error: 'You have not specified an OpenAI API key to use.',
+        code: 'MISSING_OPENAI_KEY',
+      },
+      {
+        status: 400,
+      }
+    );
   }
 
   const chatMessages = body.messages.map(
